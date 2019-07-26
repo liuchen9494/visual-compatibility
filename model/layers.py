@@ -128,7 +128,7 @@ class GCN(Layer):
                 init_func = weight_variable_he_init
 
             
-            self.vars['weights'] = [init_func(input_dim, output_dim,
+            self.vars['weights'] = [init_func(input_dim*3, output_dim,
                                             name='weights_n_%d' % i)
                                             for i in range(num_support)]
 
@@ -198,7 +198,7 @@ class MLPDecoder(Layer):
         super(MLPDecoder, self).__init__(**kwargs)
 
         with tf.variable_scope(self.name + '_vars'):
-            self.vars['weights'] = weight_variable_random_uniform(input_dim, n_out, name='weights')
+            self.vars['weights'] = weight_variable_random_uniform(input_dim*3, n_out, name='weights')
             if use_bias:
                 self.vars['bias'] = bias_variable_zero([n_out], name="bias")
 
@@ -219,9 +219,10 @@ class MLPDecoder(Layer):
         row_inputs = tf.gather(node_inputs, self.r_indices)
         col_inputs = tf.gather(node_inputs, self.c_indices)
 
-        diff = tf.abs(row_inputs - col_inputs)
+        diff = tf.concat([tf.abs(row_inputs - col_inputs), row_inputs + col_inputs], 1)
+        feat = tf.concat([diff, row_inputs * col_inputs], 1)
 
-        outputs = tf.matmul(diff, self.vars['weights'])
+        outputs = tf.matmul(feat, self.vars['weights'])
 
         if self.use_bias:
             outputs += self.vars['bias']
