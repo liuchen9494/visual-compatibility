@@ -128,7 +128,7 @@ class GCN(Layer):
                 init_func = weight_variable_he_init
 
             
-            self.vars['weights'] = [init_func(input_dim*3, output_dim,
+            self.vars['weights'] = [init_func(input_dim, output_dim,
                                             name='weights_n_%d' % i)
                                             for i in range(num_support)]
 
