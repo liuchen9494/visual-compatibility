@@ -10,7 +10,7 @@ if [ ! -f "$file_images" ]; then
 fi
 
 if [[ ! -e "$dir/jsons" ]]; then
-    mkdir -p "$dir/jsons"
+  mkdir -p "$dir/jsons"
 	tar zxfv "$file" --directory "$dir/jsons"
 fi
 
