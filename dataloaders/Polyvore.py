@@ -32,8 +32,8 @@ class DataLoaderPolyvore(Dataloader):
         questions_file_resampled = questions_file.replace('questions', 'questions_RESAMPLED')
         with open(questions_file) as f:
             self.questions = json.load(f)
-        with open(questions_file_resampled) as f:
-            self.questions_resampled = json.load(f)
+        # with open(questions_file_resampled) as f:
+        #     self.questions_resampled = json.load(f)
 
     def get_phase(self, phase):
         print('get phase: {}'.format(phase))

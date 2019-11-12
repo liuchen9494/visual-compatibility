@@ -1,13 +1,13 @@
 import json
 
 def get_compats(resampled=False):
-    dataset_path = '../jsons/'
+    dataset_path = '../jsons/disjoint/'
 
     #################
     #### MAP IDS ####
     #################
 
-    json_file = dataset_path + '{}_no_dup.json'.format('test')
+    json_file = dataset_path + '{}.json'.format('test')
     with open(json_file) as f:
         json_data = json.load(f)
 
@@ -19,7 +19,7 @@ def get_compats(resampled=False):
         for item in outfit['items']:
             outfit_id = '{}_{}'.format(outfit['set_id'], str(item['index']))
             # get id from the image url
-            _, id = item['image'].split('id=')
+            id = (item['item_id'])
             map_ids[outfit_id] = id
 
     ################################
@@ -27,19 +27,20 @@ def get_compats(resampled=False):
     ################################
 
     if resampled:
-        compat_file = dataset_path + 'fashion_compatibility_prediction_RESAMPLED.txt'
+        compat_file = dataset_path + 'compatibility_test.txt'
     else:
-        compat_file = dataset_path + 'fashion_compatibility_prediction.txt'
+        compat_file = dataset_path + 'compatibility_test.txt'
 
     outfits = []
     n_comps = 0
     with open(compat_file) as f:
         for line in f:
-            cols = line.rstrip().split(' ')
+            cols = line.rstrip().split()
             compat_score = float(cols[0])
             assert compat_score in [1, 0]
             items = cols[1:]
             # map their ids to my img ids
+            print(line)
             items = [map_ids[it] for it in items]
             n_comps += 1
             outfits.append((items, compat_score))

@@ -2,12 +2,12 @@ import json
 import numpy as np
 
 def get_questions(resampled=False):
-    dataset_path = '../jsons/'
+    dataset_path = '../jsons/disjoint/'
     if resampled:
-        questions_file = dataset_path + 'fill_in_blank_test_RESAMPLED.json'
+        questions_file = dataset_path + 'fill_in_blank_test.json'
     else:
         questions_file = dataset_path + 'fill_in_blank_test.json'
-    json_file = dataset_path + '{}_no_dup.json'.format('test')
+    json_file = dataset_path + '{}.json'.format('test')
 
     with open(json_file) as f:
         json_data = json.load(f)
@@ -28,7 +28,7 @@ def get_questions(resampled=False):
         for item in outfit['items']:
             outfit_id = '{}_{}'.format(outfit['set_id'], str(item['index']))
             # get id from the image url
-            _, id = item['image'].split('id=')
+            id = item['item_id']
             map_ids[outfit_id] = id
 
     save_data = []
@@ -44,11 +44,11 @@ def get_questions(resampled=False):
         positions = []
         i = 0
         for a_id in ques['answers']:
-            if i == 0:
-                assert a_id.split('_')[0] == outfit_id
-            else:
-                if a_id.split('_')[0] == outfit_id:
-                    pass # this is true for a few edge queries
+            # if i == 0:
+            #     assert a_id.split('_')[0] == outfit_id
+            # else:
+            #     if a_id.split('_')[0] == outfit_id:
+            #         pass # this is true for a few edge queries
             pos = int(a_id.split('_')[-1]) # get the posittion of this item within the outfit
             a_id = map_ids[a_id]
             a.append(a_id)

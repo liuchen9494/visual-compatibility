@@ -15,12 +15,13 @@ create_dataset(){
 }
 
 # extract img features
-cd utils
-extract_features "valid"
-extract_features "train"
-extract_features "test"
+#cd utils
+#extract_features "valid"
+#extract_features "train"
+#extract_features "test"
 
 # generate adj and feature matrices
+cd utils
 create_dataset "train"
 create_dataset "valid"
 create_dataset "test"

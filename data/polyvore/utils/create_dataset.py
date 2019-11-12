@@ -17,13 +17,12 @@ from resample_compat import resample_compatibility
 parser = argparse.ArgumentParser()
 parser.add_argument('--phase', default='train', choices=['train', 'valid', 'test'])
 args = parser.parse_args()
-
 save_path = '../dataset/'
 if not os.path.exists(save_path):
     os.makedirs(save_path)
 
-dataset_path = '../jsons/'
-json_file = dataset_path + '{}_no_dup.json'.format(args.phase)
+dataset_path = '../jsons/disjoint/'
+json_file = dataset_path + '{}.json'.format(args.phase)
 train_file = dataset_path + 'train_no_dup.json'
 valid_file = dataset_path + 'valid_no_dup.json'
 test_file = dataset_path + 'test_no_dup.json'
@@ -50,8 +49,7 @@ for outfit in json_data:
     outfit_ids = set()
     for item in outfit['items']:
         # get id from the image url
-        _, id = item['image'].split('id=')
-        id = int(id)
+        id = int(item['item_id'])
         outfit_ids.add(id)
         #cat_dict[id] = item['categoryid']
         map_id2their[id] = '{}_{}'.format(outfit['set_id'], item['index'])
@@ -59,7 +57,7 @@ for outfit in json_data:
     for id in outfit_ids:
         if id not in relations:
             relations[id] = set()
-            img_feats = feat_dict[str(id)] 
+            img_feats = feat_dict[str(id)]
             # TODO, REMOVE
             #cat_vector = cat_vectors[cat_dict[id]]
             #feats = np.concatenate((cat_vector, img_feats))
@@ -71,47 +69,47 @@ for outfit in json_data:
         relations[id].update(outfit_ids)
         relations[id].remove(id)
 
-map_file = save_path + 'id2idx_{}.json'.format(args.phase)
-with open(map_file, 'w') as f:
-    json.dump(id2idx, f)
-map_file = save_path + 'id2their_{}.json'.format(args.phase)
-with open(map_file, 'w') as f:
-    json.dump(map_id2their, f)
-
-# create sparse matrix that will represent the adj matrix
-sp_adj = lil_matrix((idx, idx))
-features_mat = np.zeros((idx, 2048))
-print('Filling the values of the sparse adj matrix')
-for rel in relations:
-    rel_list = relations[rel]
-    from_idx = id2idx[rel]
-    features_mat[from_idx] = features[from_idx]
-
-    for related in rel_list:
-        to_idx = id2idx[related]
-
-        sp_adj[from_idx, to_idx] = 1
-        sp_adj[to_idx, from_idx] = 1 # because it is symmetric
-
-print('Done!')
-
-density = sp_adj.sum() / (sp_adj.shape[0] * sp_adj.shape[1])
-print('Sparse density: {}'.format(density))
-
-# now save the adj matrix
-save_adj_file = save_path + 'adj_{}.npz'.format(args.phase)
-sp_adj = sp_adj.tocsr()
-save_npz(save_adj_file, sp_adj)
-
-save_feat_file = save_path + 'features_{}'.format(args.phase)
-sp_feat = csr_matrix(features_mat)
-save_npz(save_feat_file, sp_feat)
+# map_file = save_path + 'id2idx_{}.json'.format(args.phase)
+# with open(map_file, 'w') as f:
+#     json.dump(id2idx, f)
+# map_file = save_path + 'id2their_{}.json'.format(args.phase)
+# with open(map_file, 'w') as f:
+#     json.dump(map_id2their, f)
+#
+# # create sparse matrix that will represent the adj matrix
+# sp_adj = lil_matrix((idx, idx))
+# features_mat = np.zeros((idx, 2048))
+# print('Filling the values of the sparse adj matrix')
+# for rel in relations:
+#     rel_list = relations[rel]
+#     from_idx = id2idx[rel]
+#     features_mat[from_idx] = features[from_idx]
+#
+#     for related in rel_list:
+#         to_idx = id2idx[related]
+#
+#         sp_adj[from_idx, to_idx] = 1
+#         sp_adj[to_idx, from_idx] = 1 # because it is symmetric
+#
+# print('Done!')
+#
+# density = sp_adj.sum() / (sp_adj.shape[0] * sp_adj.shape[1])
+# print('Sparse density: {}'.format(density))
+#
+# # now save the adj matrix
+# save_adj_file = save_path + 'adj_{}.npz'.format(args.phase)
+# sp_adj = sp_adj.tocsr()
+# save_npz(save_adj_file, sp_adj)
+#
+# save_feat_file = save_path + 'features_{}'.format(args.phase)
+# sp_feat = csr_matrix(features_mat)
+# save_npz(save_feat_file, sp_feat)
 
 def create_test(resampled=False):
     if resampled:
         resample_fitb()
         resample_compatibility()
-
+    print("creating test")
     # build the question indexes
     questions = get_questions(resampled=resampled)
     for i in range(len(questions)): # for each question
@@ -143,4 +141,4 @@ def create_test(resampled=False):
 
 if args.phase == 'test':
     create_test(False)
-    create_test(True)
+    # create_test(True)

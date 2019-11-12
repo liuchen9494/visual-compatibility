@@ -96,7 +96,7 @@ if DATASET in ['fashiongen', 'polyvore']:
     test_features, adj_test, test_labels, test_r_indices, test_c_indices = dl.get_phase('test')
     adj_q, q_r_indices, q_c_indices, q_labels, q_ids, q_valid = dl.get_test_questions()
     if DATASET == 'polyvore':
-        res_adj_q, res_q_r_indices, res_q_c_indices, res_q_labels, res_q_ids, res_q_valid = dl.get_test_questions(resampled=True) # resampled
+        res_adj_q, res_q_r_indices, res_q_c_indices, res_q_labels, res_q_ids, res_q_valid = dl.get_test_questions(resampled=False) # resampled
     train_features, mean, std = dl.normalize_features(train_features, get_moments=True)
     val_features = dl.normalize_features(val_features, mean=mean, std=std)
     test_features = dl.normalize_features(test_features, mean=mean, std=std)

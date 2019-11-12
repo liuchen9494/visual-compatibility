@@ -49,7 +49,8 @@ def process_image(im):
     return out.squeeze()
 
 dataset_path = '..'
-images_path = dataset_path + '/images/'
+images_path = os.path.join(dataset_path, 'images')
+# json_file = os.path.join(dataset_path, 'jsons/disjoint/{}.json'.format(args.phase))
 json_file = os.path.join(dataset_path, 'jsons/{}_no_dup.json'.format(args.phase))
 with open(json_file) as f:
     data = json.load(f)
@@ -65,8 +66,9 @@ ids = {}
 for outfit in data:
     for item in outfit['items']:
         # get id from the image url
-        _, id = item['image'].split('id=')
+        # id = item['item_id']
         their_id = '{}_{}'.format(outfit['set_id'], item['index'])
+        _, id = item['image'].split('id=')
         ids[id] = their_id
 
 # initialize empty feature matrix that will be filled
@@ -80,10 +82,11 @@ with torch.no_grad(): # it is the same as volatile=True for versions before 0.4
     for id in ids:
         outfit_id, index = ids[id].split('_') # outfitID_index
 
-        image_path = images_path + outfit_id + '/' + '{}.jpg'.format(index)
-        assert os.path.exists(image_path)
+        # prod_path = os.path.join(images_path, '{}.jpg'.format(id))
+        # # print(prod_path)
+        # assert os.path.exists(prod_path)
 
-        im = skimage.io.imread(image_path)
+        im = skimage.io.imread(prod_path)
         if len(im.shape) == 2:
             im = gray2rgb(im)
         if im.shape[2] == 4:
