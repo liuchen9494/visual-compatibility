@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="4b16c13d-ca6d-4bf0-a17d-ed7e3abc9f12" name="visual" url="http://54.149.100.9">
+        <fileTransfer host="54.149.100.9" port="22" privateKey="$USER_HOME$/fashion.pem" rootFolder="/home/ubuntu/visual-compatibility" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="6b7eeb5e-db39-4197-baa4-e70ccf6f6fc1" name="cgn_test" url="http://52.40.42.174">
+        <fileTransfer host="52.40.42.174" port="22" privateKey="$USER_HOME$/fashion.pem" rootFolder="/home/ubuntu/visual-compatibility" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -37,7 +37,7 @@ ap.add_argument("-e", "--epochs", type=int, default=4000,
 ap.add_argument("-hi", "--hidden", type=int, nargs='+', default=[350, 350, 350],
                 help="Number hidden units in the GCN layers.")
 
-ap.add_argument("-do", "--dropout", type=float, default=0.5,
+ap.add_argument("-do", "--dropoutw", type=float, default=0.5,
                 help="Dropout fraction")
 
 ap.add_argument("-deg", "--degree", type=int, default=1,

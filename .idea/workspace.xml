@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b756d2e-ef10-4110-8d1e-08d475faab51" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/visual-compatibility.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/visual-compatibility.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataloaders/Polyvore.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataloaders/Polyvore.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_compatibility.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_compatibility.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_fitb.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_fitb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +37,11 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -61,6 +74,9 @@
       <workItem from="1566536427635" duration="1914000" />
       <workItem from="1566701610611" duration="5000" />
       <workItem from="1566765259680" duration="2350000" />
+      <workItem from="1573518731223" duration="6244000" />
+      <workItem from="1573583410469" duration="11961000" />
+      <workItem from="1573704987857" duration="221000" />
     </task>
     <servers />
   </component>

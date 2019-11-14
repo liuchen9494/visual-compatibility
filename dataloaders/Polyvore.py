@@ -29,7 +29,7 @@ class DataLoaderPolyvore(Dataloader):
         setattr(self, 'lower_{}_adj'.format(phase), sp.tril(adj).tocsr())
 
         questions_file = path_dataset + 'questions_test.json'
-        questions_file_resampled = questions_file.replace('questions', 'questions_RESAMPLED')
+        questions_file_resampled = questions_file.replace('questions', 'questions')
         with open(questions_file) as f:
             self.questions = json.load(f)
         with open(questions_file_resampled) as f:
@@ -185,7 +185,7 @@ class DataLoaderPolyvore(Dataloader):
             valid = []
             # keep only a subset of the outfit
             if subset:
-                outfit_subset = np.random.choice(question[0], 3, replace=False)
+                outfit_subset = np.random.choice(question[0], min(3, len(question[0])), replace=False)
             else:
                 outfit_subset = question[0]
             for index in outfit_subset: # indexes of outfit nodes
